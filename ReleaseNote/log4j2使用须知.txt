@@ -1,0 +1,4 @@
+log4j2所需jar包三个 log4j-api log4j-core log4j-web 使用2.0+版本
+log4j2 在web.xml的配置spring3.0前需要配置，在spring3以后无需配置，会默认读取class path下的log4j2.xml文件
+mybatis-config.xml中需指定log的实现方式
+log4j2.xml详细配置见文件，配置日志文件输出路径还需探索
