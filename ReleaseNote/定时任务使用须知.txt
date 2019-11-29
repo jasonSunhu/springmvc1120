@@ -1,0 +1,4 @@
+spring自带task定时任务是串行执行的；
+并行需自己配置，即开启并使用spring的异步执行，但是不推荐，建议自己建立线程池
+相同的cron表达式的定时任务之间，没有先后顺序
+不要把servlet的contextConfigLocation和context的contextConfigLocation配置为同一文件，则定时任务会重复执行
