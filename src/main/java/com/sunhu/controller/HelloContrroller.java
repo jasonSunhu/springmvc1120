@@ -4,7 +4,7 @@ import com.sunhu.dao.CronMapper;
 import com.sunhu.entity.Cron;
 import com.sunhu.entity.CronExample;
 import com.sunhu.entity.SysUser;
-import com.sunhu.dao.SysUserMapper;
+import com.sunhu.redis.RedisService;
 import com.sunhu.service.sysuser.SysUserService;
 import com.sunhu.task.DynamicTaskJob;
 import org.apache.logging.log4j.LogManager;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by Administrator on 2019/11/20.
@@ -31,6 +30,8 @@ public class HelloContrroller {
     private DynamicTaskJob dynamicTaskJob;
     @Autowired
     private CronMapper cronMapper;
+    @Autowired
+    private RedisService redisService;
 
     @RequestMapping("/frist")
     public String helloWorld(){
@@ -45,6 +46,12 @@ public class HelloContrroller {
         CronExample e = new CronExample();
         List<Cron> cronList = cronMapper.selectByExample(e);
         dynamicTaskJob.startCron(cronList);
+        return "hello";
+    }
+
+    @RequestMapping("/getCache")
+    public String getCache(){
+        SysUser sysUsers = (SysUser)redisService.hget("sys_users", "efc32c1e4cad40e59f96f1064865fff8");
         return "hello";
     }
 }

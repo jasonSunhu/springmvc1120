@@ -1,0 +1,6 @@
+spring整合redis所需jar包spring-data-redis*.jar jedis-2.9.0.jar
+配置redis数据池所需 commons-pool2-2.3.jar
+spring-data-redis2.0+与以前版本的配置略有所不同，有些方法已过时
+spring-data-redis2.0+只支持spring5和spring boot2+
+redis存储value值序列化默认JdkSerializationRedisSerializer
+配置采用GenericJackson2JsonRedisSerializer需jackson-annotations-2.3.0.jar jackson-core-2.8.5.jar jackson-databind-2.3.1.jar
