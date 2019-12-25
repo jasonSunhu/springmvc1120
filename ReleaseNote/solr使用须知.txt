@@ -1,0 +1,5 @@
+参考https://blog.csdn.net/Cs_hnu_scw/article/details/79388080
+1，部署到tomcat注意安装多个tomcat需要配置不同的环境变量名称 并修改startup.bat和shutdown.bat中的环境变量名称
+    大致步骤：解压solr.war至tomcat的webapps中；拷贝相关jar包至部署的solr的lib中；创建solrhome文件夹；配置部署的solr中的web.xml的solrhome的位置；启动tomcat
+2，使用中文分词器注意
+    拷贝中文分词jar至部署的solr的lib中；在Solr中的WEB-INF下面创建classes文件目录，用于存放中文分词器的分词配置；在solrcore的配置文件schema.xml，添加中文分词器的配置

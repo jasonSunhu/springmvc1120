@@ -93,4 +93,14 @@
     </bean>
 
     <!--redis配置结束-->
+
+    <!-- 配置SolrJ -->
+    <bean id="solrServer" class="org.apache.solr.client.solrj.impl.HttpSolrServer">
+        <constructor-arg value="http://localhost:8080/solr/products"/>
+        <property name="connectionTimeout" value="3000"></property>
+        <!--配置这个数据的解析器-->
+        <!--<property name="parser">
+            <bean class="org.apache.solr.client.solrj.impl.XMLResponseParser"></bean>
+        </property>-->
+    </bean>
 </beans>
