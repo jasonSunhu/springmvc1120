@@ -4,20 +4,20 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:amq="http://activemq.apache.org/schema/core"
+       xmlns:jms="http://www.springframework.org/schema/jms"
        xsi:schemaLocation="
             http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
             http://www.springframework.org/schema/mvc  http://www.springframework.org/schema/mvc/spring-mvc.xsd
             http://www.springframework.org/schema/task  http://www.springframework.org/schema/task/spring-task-3.2.xsd
+            http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-4.0.xsd
+            http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core-5.14.5.xsd
         ">
-    <context:component-scan base-package="com.sunhu.service"/>
-    <context:component-scan base-package="com.sunhu.dao"/>
-    <context:component-scan base-package="com.sunhu.entity"/>
-    <context:component-scan base-package="com.sunhu.task"/>
-    <context:component-scan base-package="com.sunhu.redis"/>
+    <context:component-scan base-package="com.sunhu"/>
 
     <!-- 引入配置文件，可以使用${}语法，location:指定读取文件的路径 -->
-    <context:property-placeholder location="classpath:db.properties,classpath*:redis.properties" ignore-unresolvable="true"/>
+    <context:property-placeholder location="classpath:db.properties,classpath*:redis.properties,classpath:mq.properties" ignore-unresolvable="true"/>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${jdbc.driverClassName}"/>
@@ -44,7 +44,6 @@
     <task:annotation-driven/>
 
     <!--redis配置开始-->
-
 
     <!-- redis数据源 -->
     <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
@@ -98,9 +97,7 @@
     <bean id="solrServer" class="org.apache.solr.client.solrj.impl.HttpSolrServer">
         <constructor-arg value="http://localhost:8080/solr/products"/>
         <property name="connectionTimeout" value="3000"></property>
-        <!--配置这个数据的解析器-->
-        <!--<property name="parser">
-            <bean class="org.apache.solr.client.solrj.impl.XMLResponseParser"></bean>
-        </property>-->
     </bean>
+
+    <import resource="spring-mq.xml"/>
 </beans>

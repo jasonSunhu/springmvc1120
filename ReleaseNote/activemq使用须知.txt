@@ -1,0 +1,5 @@
+参考https://blog.csdn.net/ivylingling123/article/details/80375373
+注意：
+    topic模式与queue模式
+    使用jmsTemplate.send发送消息，有三种重载
+    自动监听类实现MessageListener的onmessage方法 消息都是放在textmessage中

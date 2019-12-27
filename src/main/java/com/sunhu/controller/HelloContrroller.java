@@ -4,6 +4,8 @@ import com.sunhu.dao.CronMapper;
 import com.sunhu.entity.Cron;
 import com.sunhu.entity.CronExample;
 import com.sunhu.entity.SysUser;
+import com.sunhu.mq.QueueMessageProducer;
+import com.sunhu.mq.TopicMessageProducer;
 import com.sunhu.redis.RedisService;
 import com.sunhu.service.sysuser.SysUserService;
 import com.sunhu.task.DynamicTaskJob;
@@ -32,7 +34,10 @@ public class HelloContrroller {
     private CronMapper cronMapper;
     @Autowired
     private RedisService redisService;
-
+    @Autowired
+    private TopicMessageProducer topicMessageProducer;
+    @Autowired
+    private QueueMessageProducer queueMessageProducer;
     @RequestMapping("/frist")
     public String helloWorld(){
         logger.warn("start");
@@ -54,4 +59,17 @@ public class HelloContrroller {
         SysUser sysUsers = (SysUser)redisService.hget("sys_users", "efc32c1e4cad40e59f96f1064865fff8");
         return "hello";
     }
+
+    @RequestMapping("/sendMqTopic")
+    public String sendMq(){
+        topicMessageProducer.totouchmq1();
+        return "hello";
+    }
+
+    @RequestMapping("/sendMqQueue")
+    public String sendMqQueue(){
+        queueMessageProducer.sendQueueMessage();
+        return "hello";
+    }
+
 }

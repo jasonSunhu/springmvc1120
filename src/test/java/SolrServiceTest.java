@@ -1,3 +1,5 @@
+import com.sunhu.mq.TopicMessageListen;
+import com.sunhu.mq.TopicMessageProducer;
 import com.sunhu.service.productsolr.ProductService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,6 +22,10 @@ public class SolrServiceTest {
 
     @Autowired
     private ProductService productService;
+    @Autowired
+    private TopicMessageProducer topicMessageProducer;
+    @Autowired
+    private TopicMessageListen messageListen;
 
     @Test
     public void addProduct(){
@@ -29,4 +35,10 @@ public class SolrServiceTest {
             LOGGER.error("add to Solr error:{}",e);
         }
     }
+
+    @Test
+    public void sendMessage(){
+        topicMessageProducer.totouchmq1();
+    }
+
 }
